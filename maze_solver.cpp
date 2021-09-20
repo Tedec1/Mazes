@@ -19,7 +19,7 @@
 
 using namespace std;
 
-// TODO: read the complete assignment instructions before beginning.  Also look
+// read the complete assignment instructions before beginning.  Also look
 // at maze_solver.h - you will need to modify it as well.  In this file you
 // will need to complete several methods, and add any others as needed for your
 // solution. 
@@ -53,10 +53,12 @@ void maze_solver::_read_maze(istream& in) {
  Output the (partially or totally solved) maze on cout.
 */
 void maze_solver::_print_maze() {
+    cout << "columns: " << _columns << "\n";
+    cout << "rows: " << _rows << "\n";
+
     for(const string& s: _maze){
         cout << s << '\n';
     }
-    return;
 }
 
 
