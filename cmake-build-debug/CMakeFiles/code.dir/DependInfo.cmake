@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/jasper/CLionProjects/Mazes/main.cpp" "/home/jasper/CLionProjects/Mazes/cmake-build-debug/CMakeFiles/code.dir/main.cpp.o"
-  "/home/jasper/CLionProjects/Mazes/maze_solver.cpp" "/home/jasper/CLionProjects/Mazes/cmake-build-debug/CMakeFiles/code.dir/maze_solver.cpp.o"
+  "A:/C++ Workspace/Labs and projects/Mazes/main.cpp" "A:/C++ Workspace/Labs and projects/Mazes/cmake-build-debug/CMakeFiles/code.dir/main.cpp.obj"
+  "A:/C++ Workspace/Labs and projects/Mazes/maze_solver.cpp" "A:/C++ Workspace/Labs and projects/Mazes/cmake-build-debug/CMakeFiles/code.dir/maze_solver.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

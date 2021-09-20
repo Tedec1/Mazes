@@ -1,1 +1,3 @@
-/usr/bin/c++ -g CMakeFiles/code.dir/main.cpp.o CMakeFiles/code.dir/maze_solver.cpp.o -o code 
+"A:\Program Files (x86)\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\code.dir/objects.a
+C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\ar.exe cr CMakeFiles\code.dir/objects.a @CMakeFiles\code.dir\objects1.rsp
+C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\code.dir/objects.a -Wl,--no-whole-archive -o code.exe -Wl,--out-implib,libcode.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\code.dir\linklibs.rsp

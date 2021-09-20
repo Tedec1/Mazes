@@ -15,6 +15,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <regex>
 
 using namespace std;
 
@@ -30,7 +31,19 @@ using namespace std;
  Read in maze information (rows, columns, maze) from the provided input stream.
 */
 void maze_solver::_read_maze(istream& in) {
-    // TODO: write this method
+    string p;
+    int i = 0;
+    while(!in.eof()){
+        getline(in,p,'\n');
+        if(i == 0){
+            i++;
+            continue;
+        }
+        _maze.push_back(p);
+        i++;
+    }
+    _columns = p.length();
+    _rows = _maze.size();
 }
 
 
@@ -40,7 +53,10 @@ void maze_solver::_read_maze(istream& in) {
  Output the (partially or totally solved) maze on cout.
 */
 void maze_solver::_print_maze() {
-    // TODO: write this method
+    for(const string& s: _maze){
+        cout << s << '\n';
+    }
+    return;
 }
 
 
