@@ -13,7 +13,8 @@
 
 #include <iostream>
 #include <vector>
-
+#include <stack>
+#include <queue>
 using namespace std;
 
 /*
@@ -41,6 +42,19 @@ public:
 	void run();
 
 private:
+    class point{
+    public:
+        point()=default;;
+        point(int a,int b){
+        x = a;
+        y = b;
+        visited = false;
+        }
+        int x;
+        int y;
+        bool visited;
+    private:
+    };
 	// private instance variables
 	string _maze_name;
 	bool _use_stack;
@@ -48,7 +62,8 @@ private:
 
 	int _rows, _columns;
 	vector<string> _maze;
-
+    stack<point> _stk;
+    queue<point> _q;
 	bool _no_more_steps;
 	bool _goal_reached;
 

@@ -39,11 +39,13 @@ void maze_solver::_read_maze(istream& in) {
             i++;
             continue;
         }
+        if(p.length() > 0){
+            _rows = p.length() - 1;
+        }
         _maze.push_back(p);
         i++;
     }
-    _columns = p.length();
-    _rows = _maze.size();
+    _columns = _maze.size() - 1;
 }
 
 
@@ -53,8 +55,8 @@ void maze_solver::_read_maze(istream& in) {
  Output the (partially or totally solved) maze on cout.
 */
 void maze_solver::_print_maze() {
-    cout << "columns: " << _columns << "\n";
     cout << "rows: " << _rows << "\n";
+    cout << "columns: " << _columns << "\n";
 
     for(const string& s: _maze){
         cout << s << '\n';
@@ -68,7 +70,20 @@ void maze_solver::_print_maze() {
  Find the start point.  Push or enqueue the start point.
 */
 void maze_solver::_initialize() {
-	// TODO: write this method
+    point* start;
+    for (int i = 0; i < _rows; ++i) {
+        for (int j = 0; j < _columns; ++j) {
+            if(_maze[i][j] == 'o'){
+                if(_use_stack){
+                    _stk.push(point(i,j));
+                } else {
+                    _q.push(point(i,j));
+                }
+                start = new point(i,j);
+            }
+        }
+    }
+    cout << "starting point: (" << start->x << ", " << start->y << ")\n";
 }
 
 
@@ -210,4 +225,5 @@ void maze_solver::_pause() {
 	cout << "Hit Enter to continue...";
 	getline(cin, foo);
 }
+
 
