@@ -132,8 +132,33 @@ void maze_solver::_initialize() {
    for whether you use your stack or queue.  E.g., you could have methods
    named "_push", "_pop", "_next" which use the appropriate data structure.
 */
+bool maze_solver::_is_valid_point(point a){
+    if(a.x >= _rows || a.x < 0 ){
+        return false;
+    } else if (a.y >= _columns || a.y < 0 ){
+        return false;
+    } else if (a.visited){
+        return false;
+    }
+    return true;
+}
+void maze_solver::_add_valid_points(point a){
+    vector<vector<int>> positions = {{1,1},{1,0},{0,1},{1,0}};
+    for (vector<int> b: positions) {
+        //TODO:another for loop and adding of points
+    }
+}
 void maze_solver::_step() {
-	// TODO: write this method
+    if(_use_stack){
+        while (!_stk.empty()){
+            _add_valid_points(_stk.top());
+            _stk.pop();
+        }
+    } else {
+
+    }
+
+
 }
 
 

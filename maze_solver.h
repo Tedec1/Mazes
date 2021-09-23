@@ -68,6 +68,8 @@ private:
 	bool _goal_reached;
 
 	// private methods you need to write
+    bool _is_valid_point(point a);
+    void _add_valid_points(point a);
     void _read_maze(istream& in);
     void _print_maze();
     void _initialize();
