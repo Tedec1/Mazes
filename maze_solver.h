@@ -45,11 +45,13 @@ private:
     class point{
     public:
         point()=default;;
-        point(int a,int b){
+        point(int a,int b,char &c){
         x = a;
         y = b;
+        val = &c;
         visited = false;
         }
+        char *val;
         int x;
         int y;
         bool visited;
@@ -66,10 +68,12 @@ private:
     queue<point> _q;
 	bool _no_more_steps;
 	bool _goal_reached;
-
+    vector<vector<int>> _positions = {{1,1},{1,0},{0,1},{1,0}};
 	// private methods you need to write
     bool _is_valid_point(point a);
-    void _add_valid_points(point a);
+    vector<point> _get_valid_points(point a);
+    void _add_valid_points(stack<point>& stk);
+    void _add_valid_points(queue<point>& q);
     void _read_maze(istream& in);
     void _print_maze();
     void _initialize();

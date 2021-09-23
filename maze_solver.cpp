@@ -18,7 +18,6 @@
 #include <regex>
 
 using namespace std;
-
 // read the complete assignment instructions before beginning.  Also look
 // at maze_solver.h - you will need to modify it as well.  In this file you
 // will need to complete several methods, and add any others as needed for your
@@ -75,11 +74,11 @@ void maze_solver::_initialize() {
         for (int j = 0; j < _columns; ++j) {
             if(_maze[i][j] == 'o'){
                 if(_use_stack){
-                    _stk.push(point(i,j));
+                    _stk.push(point(i,j,_maze[i][j]));
                 } else {
-                    _q.push(point(i,j));
+                    _q.push(point(i,j,_maze[i][j]));
                 }
-                start = new point(i,j);
+                start = new point(i,j,_maze[i][j]);
             }
         }
     }
@@ -132,33 +131,56 @@ void maze_solver::_initialize() {
    for whether you use your stack or queue.  E.g., you could have methods
    named "_push", "_pop", "_next" which use the appropriate data structure.
 */
+
+
+
 bool maze_solver::_is_valid_point(point a){
-    if(a.x >= _rows || a.x < 0 ){
+    if(a.x >= _rows || a.x < 0 || a.y >= _columns || a.y < 0 || a.visited || *a.val == '#') {
         return false;
-    } else if (a.y >= _columns || a.y < 0 ){
-        return false;
-    } else if (a.visited){
+    } else if (*a.val == '*') {
+        _no_more_steps = true;
+        _goal_reached = true;
         return false;
     }
     return true;
 }
-void maze_solver::_add_valid_points(point a){
-    vector<vector<int>> positions = {{1,1},{1,0},{0,1},{1,0}};
-    for (vector<int> b: positions) {
-        //TODO:another for loop and adding of points
+
+vector<maze_solver::point> maze_solver::_get_valid_points(point a) {
+    vector<point> valid_points;
+    point* p;
+    for (vector<int> const &b: _positions) {
+       if(_is_valid_point(point(a.x + b[0],a.y + b[1],_maze[a.x + b[0]][a.y + b[1]]))){
+           p = new maze_solver::point(a.x + b[0],a.y + b[1],_maze[a.x + b[0]][a.y + b[1]]);
+           valid_points.push_back(*p);
+       }
     }
+    return valid_points;
 }
+
+void maze_solver::_add_valid_points(stack<point>& stk){
+    point* p;
+    vector<point> points_to_add;
+    while (!_stk.empty()){
+        p = &_stk.top();
+        if(*p->val == '.'){
+            *p->val = '@';
+        }
+        points_to_add.insert(points_to_add.cend(),_get_valid_points(*p).cbegin(),_get_valid_points(*p).cend());
+        // TODO: get top point,"visit" the point, find valid points, add all new points to one vector, when stk or q is empty add next points to the stack or q;
+        _stk.pop();
+    }
+
+}
+void maze_solver::_add_valid_points(queue<point>& q) {
+
+}
+
 void maze_solver::_step() {
     if(_use_stack){
-        while (!_stk.empty()){
-            _add_valid_points(_stk.top());
-            _stk.pop();
-        }
+        _add_valid_points(_stk);
     } else {
-
+        _add_valid_points(_q);
     }
-
-
 }
 
 
@@ -207,7 +229,7 @@ maze_solver::maze_solver(string infile, bool use_stak, bool pause) {
 
  While more steps are possible (while no_more_steps == false), run() calls
  step(), then calls print_maze(), then pause().  Once there are no more steps,
- it prints a success/failure message to the user (based on the goal_reached 
+ it prints a success/failure message to the user (based on the goal_reached
  flag) and writes the final maze to a solution file.
 */
 
@@ -250,5 +272,6 @@ void maze_solver::_pause() {
 	cout << "Hit Enter to continue...";
 	getline(cin, foo);
 }
+
 
 
