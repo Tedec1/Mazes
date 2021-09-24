@@ -39,12 +39,12 @@ void maze_solver::_read_maze(istream& in) {
             continue;
         }
         if(p.length() > 0){
-            _rows = p.length() - 1;
+            _columns = p.length();
         }
         _maze.push_back(p);
         i++;
     }
-    _columns = _maze.size() - 1;
+    _rows = _maze.size() - 1;
 }
 
 
@@ -165,14 +165,40 @@ void maze_solver::_add_valid_points(stack<point>& stk){
         if(*p->val == '.'){
             *p->val = '@';
         }
-        points_to_add.insert(points_to_add.cend(),_get_valid_points(*p).cbegin(),_get_valid_points(*p).cend());
+        vector<point> a = _get_valid_points(*p);
+        points_to_add.insert(points_to_add.cend(),a.cbegin(),a.cend());
         // TODO: get top point,"visit" the point, find valid points, add all new points to one vector, when stk or q is empty add next points to the stack or q;
         _stk.pop();
     }
-
+    for(point &q: points_to_add){
+        if(*q.val != '@'){
+            _stk.push(q);
+        }
+    }
+    if(_stk.empty()){
+        _no_more_steps = true;
+    }
 }
 void maze_solver::_add_valid_points(queue<point>& q) {
-
+    point *p;
+    vector<point> points_to_add;
+    while(!_q.empty()){
+        p = &_q.front();
+        if(*p->val == '.'){
+            *p->val = '@';
+        }
+        vector<point> a = _get_valid_points(*p);
+        points_to_add.insert(points_to_add.cend(),a.cbegin(),a.cend());
+        _q.pop();
+    }
+    for(point &q: points_to_add){
+        if(*q.val != '@'){
+            _q.push(q);
+        }
+    }
+    if(_q.empty()){
+        _no_more_steps = true;
+    }
 }
 
 void maze_solver::_step() {

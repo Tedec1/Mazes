@@ -68,7 +68,7 @@ private:
     queue<point> _q;
 	bool _no_more_steps;
 	bool _goal_reached;
-    vector<vector<int>> _positions = {{1,1},{1,0},{0,1},{1,0}};
+    vector<vector<int>> _positions = {{1,0},{-1,0},{0,1},{0,-1}};
 	// private methods you need to write
     bool _is_valid_point(point a);
     vector<point> _get_valid_points(point a);
